@@ -1,31 +1,12 @@
-name: Self-Hosted Runner Test
+name: Run on S-H runner
 
 on:
-  push:
-    branches: [ main ]
+    workflow_dispatch:
 
 jobs:
-  test-job:
-    runs-on: self-hosted
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Display Environment Information
-      run: |
-        echo "Running on self-hosted runner!"
-        echo "Runner name: $HOSTNAME"
-        whoami
-        pwd
-        echo "Files in repository:"
-        ls -la
-        
-    - name: System Information
-      run: |
-        echo "OS Information:"
-        lsb_release -a
-        echo "Disk space:"
-        df -h
-        
-    - name: Complete
-      run: echo "Workflow completed successfully on self-hosted EC2 runner!"
+    selfhosted-job:
+        runs-on: [self-hosted, linux]
+        steps:
+            -   uses: actions/checkout@v4
+            -   run: echo "Running EC2 self-hosted runner"
+            -   run: uname -a
